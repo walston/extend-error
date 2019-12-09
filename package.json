@@ -11,9 +11,8 @@
     "mocha": "*"
   },
   "repository": {
-    "type" : "git",
-    "url" : "http://github.com/jayyvis/extend-error.git"
+    "type": "git",
+    "url": "http://github.com/jayyvis/extend-error.git"
   },
   "license": "MIT"
 }
-

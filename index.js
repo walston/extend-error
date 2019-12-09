@@ -13,22 +13,25 @@ Error.extend = function(subTypeName, errorCode /*optional*/) {
   var Parent = this;
   assert(subTypeName, 'subTypeName is required');
 
-  //define new error type
+  var o = {
+    //define new error type
+    [subTypeName]: function(message) {
+      //handle constructor call without 'new'
+      if (!(this instanceof SubType)) {
+        return new SubType(message);
+      }
 
-  var SubType = function(message) {
-    //handle constructor call without 'new'
-    if (!(this instanceof SubType)) {
-      return new SubType(message);
+      //populate error details
+      this.name = subTypeName;
+      this.code = errorCode;
+      this.message = message || '';
+
+      //include stack trace in error object
+      Error.captureStackTrace(this, this.constructor);
     }
-
-    //populate error details
-    this.name = subTypeName;
-    this.code = errorCode;
-    this.message = message || '';
-
-    //include stack trace in error object
-    Error.captureStackTrace(this, this.constructor);
   };
+
+  var SubType = o[subTypeName];
 
   //inherit the base prototype chain
   util.inherits(SubType, this);

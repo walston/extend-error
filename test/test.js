@@ -63,3 +63,20 @@ describe('error details', function() {
     assert.equal(err.code, 400);
   });
 });
+
+describe('error details', function() {
+  it('should have message', function() {
+    var err;
+
+    err = new errors.ClientError('name required');
+    assert.equal(err.message, 'name required');
+
+    err = new errors.ClientError();
+    assert.equal(err.message, '');
+  });
+
+  it('should have code', function() {
+    var err = new errors.ClientError();
+    assert.equal(err.code, 400);
+  });
+});
